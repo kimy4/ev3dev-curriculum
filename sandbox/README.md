@@ -34,4 +34,4 @@ Additionally you will notice there is a `/sandbox/src` folder.
 If you REALLY mess up while implementing your member folder you can always
 refer to the src folder to see what the given code looked like.  Nobody should
 edit any code within the `/sandbox/src` folder.  It is meant to be a pristine original copy
-of the given sandbox source code.
+of the given sandbox source code. 
