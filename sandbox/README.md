@@ -26,7 +26,7 @@ The subfolders m1, m2, m3, and m4 that are within this `/sandbox` folder are all
 Fill in your name above then do a VCS -> Commit.. -> Commit and Push.
 As others fill in their names do a VCS -> Update project.
 After all names are in, then team member #1 can remove unused rows if needed.
-Additionally team member #1 can mark the TODOs above as DONE.
+Additionally team member #1 can mark the TODOs above as DONE. 
 Other team members can do an VCS -> Update project to see that change.
 
 Side note:
@@ -34,4 +34,4 @@ Additionally you will notice there is a `/sandbox/src` folder.
 If you REALLY mess up while implementing your member folder you can always
 refer to the src folder to see what the given code looked like.  Nobody should
 edit any code within the `/sandbox/src` folder.  It is meant to be a pristine original copy
-of the given sandbox source code. 
+of the given sandbox source code.
