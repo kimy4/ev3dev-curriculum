@@ -44,13 +44,18 @@ def main():
     # Buttons on EV3 (we keep giving you this line, but you could have typed it)
     btn = ev3.Button()
 
-    # TODO: 3. Just below this comment add SIMPLE (no lambda) callbacks for:
+    # DONE: 3. Just below this comment add SIMPLE (no lambda) callbacks for:
     #   .on_up to call handle_up_button (that function already exist below, you will modify it in todo4)
     #   .on_down to call handle_down_button (that function does not exist yet, you will write it in todo4)
     #   .on_left to call handle_left_button (that function does not exist yet, you will write it in todo4)
     #   .on_right to call handle_right_button (that function does not exist yet, you will write it in todo4)
     # Here is one for free...
-    #  btn.on_up = handle_up_button
+    btn.on_up = handle_up_button
+    btn.on_down = handle_down_button
+    btn.on_left = handle_left_button
+    btn.on_right = handle_right_button
+
+
 
     # TODO: 5. Note #4 is lower (this is TO DO #5 which you should do after #4).
     # Add a lambda callback for on_backspace.  The syntax of lambda is:
@@ -71,7 +76,7 @@ def main():
 # Button event callback functions
 # ----------------------------------------------------------------------
 
-# TODO: 4. Implement the up, down, left, and right callback functions as follows:
+# DONE: 4. Implement the up, down, left, and right callback functions as follows:
 #   handle_up_button - when state is True (a press), call play_song_by_individual_tones()
 #     You can leave the print messages below, just add the new requirement stated above.
 #   handle_down_button - when state is True (a press), call play_song_by_notes_list()
@@ -85,10 +90,34 @@ def main():
 def handle_up_button(button_state):
     """Handle IR / button event."""
     if button_state:
+        play_song_by_individual_tones()
         print("Up button is pressed")
     else:
         print("Up button was released")
 
+
+def handle_down_button(button_state):
+    if button_state:
+        play_song_by_notes_list()
+        print("Up button is pressed")
+    else:
+        print("Up button was released")
+
+
+def handle_left_button(button_state):
+    if button_state:
+        speak()
+        print("Up button is pressed")
+    else:
+        print("Up button was released")
+
+
+def handle_right_button(button_state):
+    if button_state:
+        play_wav_file()
+        print("Up button is pressed")
+    else:
+        print("Up button was released")
 
 # TODO: 6. Implement the handle_shutdown function.
 #   Function signature should be:

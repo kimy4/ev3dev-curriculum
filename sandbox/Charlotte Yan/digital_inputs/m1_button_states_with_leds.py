@@ -5,8 +5,8 @@ This module lets you practice using the buttons on the EV3 as states.
 Normally we'll use event callbacks with buttons, but this example uses buttons as states for the purposes of example.
 Much like we did in kimy4 of the motors unit, later we will show you different (better) ways to use buttons.
 
-Authors: David Fisher and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+Authors: David Fisher and Charlotte Yan.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 # TODO: 2. Have someone on your team run this program as is on the EV3 and make sure everyone understands the code.
 #   You will exit the program by pressing the back button on the EV3 brick (button just below the screen).
@@ -53,7 +53,19 @@ def main():
 
     current_color_index = 0
     while True:
-        # TODO: 3. Implement the left, right, and up buttons as follows:
+        if btn.up:
+            print('up')
+            ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.BLACK)
+            ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.BLACK)
+        if btn.left:
+            print('left')
+            ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.GREEN)
+            ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.BLACK)
+        if btn.right:
+            print('right')
+            ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.BLACK)
+            ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.RED)
+        # DONE: 3. Implement the left, right, and up buttons as follows:
         #    When the up button is being pressed:
         #      -- print the word "up"
         #      -- turn off all LEDs
@@ -72,12 +84,18 @@ def main():
         #     Just make sure not to comment out too much. ;)
 
         # TODO: 4. Implement the down button to change the color of both LEDs.
-        #   The first press to down should make both LEDs GREEN, the next press makes them RED, then AMBER, then off.
+        #   The first press to down should make bo/th LEDs GREEN, the next press makes them RED, then AMBER, then off.
         #   If the user presses the down button again, wrap around the list to GREEN and continue as before.
         #   If the user holds down the button, figure out how to make the color change still only happen once.
         #   Since you are only allowed to use states, not event callbacks, this last request is a pain, but it's doable
         #     with a while loop that blocks code execution until the down instance variable is False.
         #     Use a time.sleep(0.01) inside the while loop to do nothing but wait for the button to be released.
+
+    colors = [GREEN, RED, AMBER, BLACK]
+    while True:
+        
+
+
 
         # TODO: 5. Formally test your work. When you think you have the problem complete run these tests:
         #   Press Left - Green left LED is on (try holding the button down for a few seconds when you to the press)

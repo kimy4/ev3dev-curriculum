@@ -18,6 +18,48 @@ import time
 
 class Snatch3r(object):
     """Commands for the Snatch3r robot that might be useful in many different programs."""
-    
-    # TODO: Implement the Snatch3r class as needed when working the sandox exercises
+
+    def drive_inches(self, inches, speed):
+        self.inches = inches
+        self.speed = speed
+
+        left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+        right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+
+        assert left_motor.connected
+        assert right_motor.connected
+
+
+        degree_per_inch = 90
+        motor_turns_needed_in_degrees = inches * degree_per_inch
+
+        left_motor.run_to_rel_pos(position_sp=motor_turns_needed_in_degrees, speed_sp=speed,
+                                  stop_action=ev3.Motor.STOP_ACTION_BRAKE)
+        right_motor.run_to_rel_pos(position_sp=motor_turns_needed_in_degrees,
+                                   speed_sp=speed,stop_action=ev3.Motor.STOP_ACTION_BRAKE)
+
+        left_motor.wait_while(ev3.Motor.STATE_RUNNING)
+        right_motor.wait_while(ev3.Motor.STATE_RUNNING)
+
+    def turn_degrees(self, degrees_to_turn, turn_speed_sp):
+        self.degrees_to_turn = degrees_to_turn
+        self.turn_speed_sp = turn_speed_sp
+
+        left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+        right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+
+        assert left_motor.connected
+        assert right_motor.connected
+
+        left_motor.run_to_rel_pos(position_sp=-degrees_to_turn*5, speed_sp=turn_speed_sp,
+                                 stop_action=ev3.Motor.STOP_ACTION_BRAKE)
+        right_motor.run_to_rel_pos(position_sp=degrees_to_turn*5, speed_sp=turn_speed_sp,
+                                   stop_action=ev3.Motor.STOP_ACTION_BRAKE)
+        ev3.Sound.beep().wait()
+        left_motor.wait_while(ev3.Motor.STATE_RUNNING)
+        right_motor.wait_while(ev3.Motor.STATE_RUNNING)
+
+
+
+       # DONE: Implement the Snatch3r class as needed when working the sandox exercises
     # (and delete these comments)
