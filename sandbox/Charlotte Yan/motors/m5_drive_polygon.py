@@ -41,7 +41,7 @@ def main():
             robo.Snatch3r.turn_degrees(robot, turn_amount, speed_deg_per_second)
 
 
-        # TODO: 3. Call over a TA or instructor to sign your team's checkoff sheet and do a code review.
+        # DONE: 3. Call over a TA or instructor to sign your team's checkoff sheet and do a code review.
         #   You are done with the Motors unit!
         #
         # Observations you should make, by making library functions you can make this program in only 3 lines of code.

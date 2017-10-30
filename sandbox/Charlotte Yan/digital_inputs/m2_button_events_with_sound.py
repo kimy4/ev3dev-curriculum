@@ -8,8 +8,8 @@ the more complex callback approach that uses lamdba when data needs to be shared
 Since this module is all about the buttons the Sound code has just been provided as a finished
 example.  You will call different Sound functions using different buttons.
 
-Authors: David Fisher and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+Authors: David Fisher and Charlotte Yan.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import ev3dev.ev3 as ev3
 import time
@@ -54,8 +54,7 @@ def main():
     btn.on_down = handle_down_button
     btn.on_left = handle_left_button
     btn.on_right = handle_right_button
-
-
+    btn.on_backspace = lambda state: handle_shutdown(state, dc)
 
     # TODO: 5. Note #4 is lower (this is TO DO #5 which you should do after #4).
     # Add a lambda callback for on_backspace.  The syntax of lambda is:
@@ -132,6 +131,11 @@ def handle_right_button(button_state):
 #    "Press Ctrl C on your keyboard to exit this program (the Back button is not wired up to exit)"
 # to instead say "Press Back to exit this program."
 
+
+def handle_shutdown(button_state, dc):
+    if button_state:
+        print('back')
+        dc.running = False
 
 # TODO: 7. Call over a TA or instructor to sign your team's checkoff sheet and do a code review.
 #

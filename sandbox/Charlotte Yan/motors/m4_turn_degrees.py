@@ -80,6 +80,6 @@ main()
 #    360 degrees
 # Add more tests as you see fit.  Ideally you should be within 45 degrees of back where you started (if you can).
 
-# TODO: 6. Call over a TA or instructor to sign your team's checkoff sheet and do a code review.
+# DONE: 6. Call over a TA or instructor to sign your team's checkoff sheet and do a code review.
 #
 # Observations you should make, using run_to_rel_pos is useful for accurate turns, but testing takes time.

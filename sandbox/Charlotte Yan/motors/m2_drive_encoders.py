@@ -86,7 +86,7 @@ def main():
 #   400 dps -36 inches (make sure it drives within 3 inches of the target distance)
 # Add more tests as you see fit.  Ideally you should be +/- 10% of the target goal this time.
 
-# TODO: 7. Call over a TA or instructor to sign your team's checkoff sheet and do a code review.
+# DONE: 7. Call over a TA or instructor to sign your team's checkoff sheet and do a code review.
 #
 # Observations you should make, run_to_rel_pos is easier to use since it uses encoders that are independent of speed.
 
