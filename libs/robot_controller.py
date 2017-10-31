@@ -97,7 +97,7 @@ class Snatch3r(object):
         ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.GREEN)
         ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.GREEN)
 
-        ev3.Sound.speak("Goodbye")
+        ev3.Sound.speak("Goodbye").wait()
         print('Goodbye')
 
 
