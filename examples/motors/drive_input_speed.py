@@ -42,3 +42,7 @@ def main():
 # Calls  main  to start the ball rolling.
 # ----------------------------------------------------------------------
 main()
+
+# # robot@!lego10:~/csse120$ cd examples/motors$ ls
+# python drive_input_speed.py
+

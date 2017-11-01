@@ -97,7 +97,7 @@ def main():
         time.sleep(time_s)
         left_motor.stop(stop_action="brake")
         right_motor.stop(stop_action="brake")
-
+        ev3.Sound.beep().wait()
 
     print("Goodbye!")
     ev3.Sound.speak("Goodbye").wait()
