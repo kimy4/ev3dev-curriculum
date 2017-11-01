@@ -131,7 +131,7 @@ def main():
 # ----------------------------------------------------------------------
 # DONE: 6. Implement the IR handler callbacks handlers.
 
-# TODO: 7. When your program is complete, call over a TA or instructor to sign your checkoff sheet and do a code review.
+# DONE: 7. When your program is complete, call over a TA or instructor to sign your checkoff sheet and do a code review.
 #
 # Observations you should make, IR buttons are a fun way to control the robot.
 

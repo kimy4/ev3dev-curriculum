@@ -123,7 +123,7 @@ def arm_down(arm_motor):
     arm_motor.wait_while(ev3.Motor.STATE_RUNNING)  # Blocks until the motor finishes running
     ev3.Sound.beep().wait()
 
-    # TODO: 6. After you fix the bugs in the three arm movement commands demo your code to a TA or instructor.
+    # DONE: 6. After you fix the bugs in the three arm movement commands demo your code to a TA or instructor.
     #
     # Observations you should make, the TouchSensor is easy to use, but the motor commands are still a little bit
     #   tricky.  It is neat that the same motor API works for both the wheels and the arm.
