@@ -17,6 +17,8 @@ import time
 
 
 class Snatch3r(object):
+    """Commands for the Snatch3r robot that might be useful in many different programs."""
+
     def drive_inches(self, inches, speed):
         self.inches = inches
         self.speed = speed
@@ -27,19 +29,21 @@ class Snatch3r(object):
         assert left_motor.connected
         assert right_motor.connected
 
-        degrees_per_inch = 90
-        degrees = inches * degrees_per_inch
 
-        left_motor.run_to_rel_pos(position_sp=degrees, speed_sp=speed, stop_action=ev3.Motor.STOP_ACTION_BRAKE)
-        right_motor.run_to_rel_pos(position_sp=degrees, speed_sp=speed, stop_action=ev3.Motor.STOP_ACTION_BRAKE)
+        degree_per_inch = 90
+        motor_turns_needed_in_degrees = inches * degree_per_inch
+
+        left_motor.run_to_rel_pos(position_sp=motor_turns_needed_in_degrees, speed_sp=speed,
+                                  stop_action=ev3.Motor.STOP_ACTION_BRAKE)
+        right_motor.run_to_rel_pos(position_sp=motor_turns_needed_in_degrees,
+                                   speed_sp=speed,stop_action=ev3.Motor.STOP_ACTION_BRAKE)
 
         left_motor.wait_while(ev3.Motor.STATE_RUNNING)
         right_motor.wait_while(ev3.Motor.STATE_RUNNING)
-        ev3.Sound.beep().wait()
 
-    def turn_degree(self, degree, speed):
-        self.degree_to_turn = degree
-        self.turn_speed_sp = speed
+    def turn_degrees(self, degrees_to_turn, turn_speed_sp):
+        self.degrees_to_turn = degrees_to_turn
+        self.turn_speed_sp = turn_speed_sp
 
         left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
         right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
@@ -47,13 +51,57 @@ class Snatch3r(object):
         assert left_motor.connected
         assert right_motor.connected
 
-        left_motor.run_to_rel_pos(position_sp=degree * 5, speed_sp=speed)
-        right_motor.run_to_rel_pos(position_sp=-degree * 5, speed_sp=speed)
+        left_motor.run_to_rel_pos(position_sp=-degrees_to_turn*5, speed_sp=turn_speed_sp,
+                                 stop_action=ev3.Motor.STOP_ACTION_BRAKE)
+        right_motor.run_to_rel_pos(position_sp=degrees_to_turn*5, speed_sp=turn_speed_sp,
+                                   stop_action=ev3.Motor.STOP_ACTION_BRAKE)
+        ev3.Sound.beep().wait()
         left_motor.wait_while(ev3.Motor.STATE_RUNNING)
         right_motor.wait_while(ev3.Motor.STATE_RUNNING)
+
+    def arm_calibration(self):
+        arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
+        touch_sensor = ev3.TouchSensor()
+
+        arm_motor.run_forever(speed_sp=900)
+        while not touch_sensor.is_pressed:
+            time.sleep(0.01)
+        arm_motor.stop(stop_action=ev3.Motor.STOP_ACTION_BRAKE)
+
+        arm_revolutions_for_full_range = 14.2 * 360
+        arm_motor.run_to_rel_pos(position_sp=-arm_revolutions_for_full_range, speed_sp=-900)
+        arm_motor.wait_while(ev3.Motor.STATE_RUNNING)
         ev3.Sound.beep().wait()
 
-    """Commands for the Snatch3r robot that might be useful in many different programs."""
-    
-    # DONE: Implement the Snatch3r class as needed when working the sandox exercises
+        arm_motor.position = 0
+
+    def arm_up(self):
+        arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
+        touch_sensor = ev3.TouchSensor()
+
+        arm_motor.run_to_rel_pos(position_sp=14.2 * 360, speed_sp=900)
+        while not touch_sensor.is_pressed:
+            time.sleep(0.01)
+        arm_motor.stop(stop_action=ev3.Motor.STOP_ACTION_BRAKE)
+        ev3.Sound.beep().wait()
+
+    def arm_down(self):
+        arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
+        touch_sensor = ev3.TouchSensor()
+
+        arm_motor.run_to_abs_pos(position_sp=0, speed_sp=900)
+        arm_motor.wait_while(ev3.Motor.STATE_RUNNING)  # Blocks until the motor finishes running
+        ev3.Sound.beep().wait()
+
+    def shutdown(self):
+        ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.GREEN)
+        ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.GREEN)
+
+        ev3.Sound.speak("Goodbye").wait()
+        print('Goodbye')
+
+
+
+
+       # DONE: Implement the Snatch3r class as needed when working the sandox exercises
     # (and delete these comments)
