@@ -19,6 +19,12 @@ import time
 class Snatch3r(object):
     """Commands for the Snatch3r robot that might be useful in many different programs."""
 
+    def __init__(self):
+        self.left_motor=ev3.LargeMotor(ev3.OUTPUT_B)
+        self.right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+        assert self.left_motor.connected
+        assert self.right_motor.connected
+
     def drive_inches(self, inches, speed):
         self.inches = inches
         self.speed = speed
@@ -111,6 +117,14 @@ class Snatch3r(object):
             time.sleep(0.1)  # Do nothing (except receive MQTT messages) until an MQTT message calls shutdown.
         self.shutdown()
 
+    def stop(self):
+        self.left_motor.stop()
+        self.right_motor.stop()
+
+
+    def drive(self,left_speed,right_speed):
+        self.left_motor.run_forever(speed_sp=left_speed)
+        self.right_motor.run_forever(speed_sp=right_speed)
 
        # DONE: Implement the Snatch3r class as needed when working the sandox exercises
     # (and delete these comments)
