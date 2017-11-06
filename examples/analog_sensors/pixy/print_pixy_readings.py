@@ -30,6 +30,8 @@ def main():
         print("(X, Y) = ({}, {})    Width = {} Height = {}".format(
             pixy.value(1), pixy.value(2), pixy.value(3), pixy.value(4)))
         time.sleep(0.5)
+        if touch_sensor.is_pressed:
+            break
 
     print("Goodbye")
     ev3.Sound.speak("Goodbye").wait()
