@@ -25,6 +25,18 @@ class Snatch3r(object):
         assert self.left_motor.connected
         assert self.right_motor.connected
 
+        self.color_sensor = ev3.ColorSensor()
+        assert self.color_sensor
+
+        self.touch_sensor = ev3.TouchSensor()
+        assert self.touch_sensor
+
+        self.pixy = ev3.Sensor(driver_name="pixy-lego")
+        assert self.pixy
+
+        self.ir_sensor = ev3.InfraredSensor()
+        assert self.ir_sensor
+
     def drive_inches(self, inches, speed):
         self.inches = inches
         self.speed = speed
@@ -121,10 +133,54 @@ class Snatch3r(object):
         self.left_motor.stop()
         self.right_motor.stop()
 
-
     def drive(self,left_speed,right_speed):
         self.left_motor.run_forever(speed_sp=left_speed)
         self.right_motor.run_forever(speed_sp=right_speed)
 
-       # DONE: Implement the Snatch3r class as needed when working the sandox exercises
+    def seek_beacon(self):
+        forward_speed = 300
+        turn_speed = 100
+        beacon_seaker = ev3.BeaconSeeker(channel=1)
+
+        while not self.touch_sensor.is_pressed:
+            current_heading = beacon_seaker.heading
+            current_distance = beacon_seaker.distance
+            if current_distance == -128:
+                print("IR Remote not found. Distance is -128")
+                self.drive(turn_speed, -turn_speed)
+            else:
+                if math.fabs(current_heading) < 2:
+                    if current_distance == 0:
+                        self.drive_inches(4.5, forward_speed)
+                        self.stop()
+                        print("Found the beacon!")
+                        return True
+                    print("On the right heading. Distance: ", current_distance)
+                    if current_distance > 1:
+                        self.drive(forward_speed, forward_speed)
+                        time.sleep(0.1)
+                if 2 < math.fabs(current_heading) < 10:
+                    if current_heading > 0:
+                        self.drive(turn_speed, -turn_speed)
+                        time.sleep(0.1)
+                        print("Adjusting heading right: ", current_heading)
+
+                    if current_heading < 0:
+                        self.drive(-turn_speed, turn_speed)
+                        time.sleep(0.1)
+                        print("Adjusting heading left: ", current_heading)
+
+                if math.fabs(current_heading) > 10:
+                    self.stop()
+                    time.sleep(0.1)
+                    print("Heading is too far off to fix: ", current_heading)
+
+            time.sleep(0.2)
+
+            print("Abandon ship!")
+            self.stop()
+            return False
+
+
+                # DONE: Implement the Snatch3r class as needed when working the sandox exercises
     # (and delete these comments)
