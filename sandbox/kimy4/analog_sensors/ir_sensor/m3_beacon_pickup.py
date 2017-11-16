@@ -26,7 +26,6 @@ import time
 
 import robot_controller as robo
 
-
 def main():
     print("--------------------------------------------")
     print(" Beacon pickup")

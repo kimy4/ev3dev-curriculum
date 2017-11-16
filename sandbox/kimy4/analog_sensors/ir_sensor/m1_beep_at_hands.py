@@ -8,7 +8,7 @@ Check every 0.1 seconds for a hand and print the proximity value each check.
 
 Setup the program to continue to run until the user presses the touch sensor.
 
-Authors: David Fisher and Simon Kim.  February 2017.
+Authors: David Fisher and Simon Kimmm.  February 2017.
 """  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import ev3dev.ev3 as ev3
