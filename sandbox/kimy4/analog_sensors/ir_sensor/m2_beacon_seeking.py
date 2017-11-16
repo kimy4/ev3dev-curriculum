@@ -37,6 +37,7 @@ def main():
 
             command = input("Hit enter to seek the beacon again or enter q to quit: ")
             if command == "q":
+                robot.arm_down()
                 break
     except:
         traceback.print_exc()
@@ -96,6 +97,7 @@ def seek_beacon(robot):
                     robot.drive_inches(4.5, forward_speed)
                     robot.stop()
                     print("Found the beacon!")
+                    robot.arm_up()
                     return True
                 print("On the right heading. Distance: ", current_distance)
                 if current_distance > 1:

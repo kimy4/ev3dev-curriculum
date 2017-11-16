@@ -109,6 +109,7 @@ class Snatch3r(object):
             ev3.Sound.speak('goodbye').wait()
             print('Goodbye')
 
+
     def loop_forever(self):
         # This is a convenience method that is only useful if the only input to the robot is coming via mqtt.
         btn = ev3.Button()
