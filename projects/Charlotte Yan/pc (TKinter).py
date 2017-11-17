@@ -1,7 +1,7 @@
-
 #Charlotte Yan
 #LEGO 15
-#pc control
+#pc control -- TKinter
+
 
 
 import tkinter
@@ -10,15 +10,12 @@ from tkinter import ttk
 import mqtt_remote_method_calls as com
 
 
-class MyDelegate(object):
-
-    def print_message(self, message):
-        print("Message received:", message)
-
-
 def main():
+    mqtt_client = com.MqttClient()
+    mqtt_client.connect_to_ev3()
+
     root = tkinter.Tk()
-    root.title("Speed and degrees")
+    root.title("MQTT Remote")
 
     main_frame = ttk.Frame(root, padding=40, relief='raised')
     main_frame.grid()
@@ -26,20 +23,8 @@ def main():
     left_side_label = ttk.Label(main_frame, text="Left")
     left_side_label.grid(row=2, column=0)
 
-    left_degree_entry = ttk.Entry(main_frame, width=8)
-    left_degree_entry.grid(row=5, column=0)
-
-    left_degree_label = ttk.Label(main_frame, text='(degree=0-180)')
-    left_degree_label.grid(row=6, column=0)
-
     right_side_label = ttk.Label(main_frame, text="Right")
     right_side_label.grid(row=2, column=2)
-
-    right_degree_entry = ttk.Entry(main_frame, width=8)
-    right_degree_entry.grid(row=5, column=2)
-
-    right_degree_label = ttk.Label(main_frame, text='(degree=0-180)')
-    right_degree_label.grid(row=6, column=2)
 
     label2 = ttk.Label(main_frame, text='(speed=0-600)')
     label2.grid(row=4, column=0)
@@ -64,21 +49,23 @@ def main():
     forward_button['command'] = lambda: go_forward(mqtt_client, left_speed_entry.get(), right_speed_entry.get())
     root.bind('<Up>', lambda event: go_forward(mqtt_client, left_speed_entry.get(), right_speed_entry.get()))
 
-    turn_button = ttk.Button(main_frame, text='Turn')
-    turn_button.grid(row=5, column=1)
-    turn_button['command'] = lambda: turn_degrees(mqtt_client, left_degree_entry.get(), right_degree_entry.get())
-    # root.bind('<Turn>', lambda event:turn_degrees(mqtt_client, left_degree_entry.get(), right_degree_entry.get()))
+    up_button = ttk.Button(main_frame, text="Up")
+    up_button.grid(row=6, column=0)
+    up_button['command'] = lambda: send_up(mqtt_client)
+    root.bind('<u>', lambda event: send_up(mqtt_client))
 
-    my_delegate = MyDelegate()
-    mqtt_client = com.MqttClient(my_delegate)
-    mqtt_client.connect_to_ev3()
+    down_button = ttk.Button(main_frame, text="Down")
+    down_button.grid(row=6, column=2)
+    down_button['command'] = lambda: send_down(mqtt_client)
+    root.bind('<j>', lambda event: send_down(mqtt_client))
+
+    stop_button = ttk.Button(main_frame, text="Stop")
+    stop_button.grid(row=6, column=1)
+    stop_button['command'] = lambda: stop(mqtt_client)
+    root.bind('<space>', lambda event: stop(mqtt_client))
+
 
     root.mainloop()
-
-
-def quit_program(mqtt_client):
-    mqtt_client.close()
-    exit()
 
 
 def send_message(mqtt_client, msg_entry):
@@ -96,4 +83,22 @@ def turn_degrees(mqtt_client, left_degree_entry, right_degree_entry):
     print('turn_degrees')
     mqtt_client.send_message('turn', [int(left_degree_entry), int(right_degree_entry)])
 
+
+def stop(mqtt_client):
+    print("stop")
+    mqtt_client.send_message("stop")
+
+
+def send_up(mqtt_client):
+    print("arm_up")
+    mqtt_client.send_message("arm_up")
+
+
+def send_down(mqtt_client):
+    print("arm_down")
+    mqtt_client.send_message("arm_down")
+
+
 main()
+
+
