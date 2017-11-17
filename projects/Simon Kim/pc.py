@@ -20,7 +20,7 @@ def main():
 
     drive_to_color = ttk.Label(main_frame, text="drive_to_color: White, Black, Blue, red, or yellow")
 
-    # entry
+    # Entry
     drive_to_color.grid(row=0, column=0)
     drive_to_color_ttk = ttk.Entry(main_frame, width=20)
     drive_to_color_ttk.grid(row=1, column=0)
