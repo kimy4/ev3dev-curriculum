@@ -44,19 +44,17 @@ class MyDelegate(object):
 
 
 def main():
-
     robot = robo.Snatch3r()
-    my_delegate = MyDelegate(robot)
-    mqtt_client = com.MqttClient(my_delegate)
+    mqtt_client = com.MqttClient(robot)
+    mqtt_client.connect_to_pc()
     btn = ev3.Button()
-    mqtt_client.connect_to_pc("mosquitto.csse.rose-hulman.edu", 3)
 
     btn.on_up = lambda state: deliver_the_pizza(state, robot, ev3.ColorSensor.COLOR_RED)
     btn.on_down = lambda state: deliver_the_pizza(state, robot, ev3.ColorSensor.COLOR_WHITE)
     btn.on_left = lambda state: deliver_the_pizza(state, robot, ev3.ColorSensor.COLOR_BLUE)
     btn.on_right = lambda state: deliver_the_pizza(state, robot, ev3.ColorSensor.COLOR_BLACK)
 
-    while my_delegate.running:
+    while mqtt_client.running:
         btn.process()
         time.sleep(0.01)
 
